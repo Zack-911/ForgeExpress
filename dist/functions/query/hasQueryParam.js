@@ -17,8 +17,10 @@ exports.default = new forgescript_1.NativeFunction({
         },
     ],
     output: forgescript_1.ArgType.Boolean,
-    async execute(ctx, [key]) {
-        const req = ctx.request;
+    async execute(_, [key]) {
+        const req = _.getEnvironmentKey("req");
+        if (!req || !key)
+            return this.success("");
         return this.success(Object.prototype.hasOwnProperty.call(req.query, key));
     },
 });

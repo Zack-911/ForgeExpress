@@ -7,8 +7,10 @@ exports.default = new forgescript_1.NativeFunction({
     description: "Returns the number of query parameters in the request.",
     unwrap: false,
     output: forgescript_1.ArgType.Number,
-    async execute(ctx) {
-        const req = ctx.request;
+    async execute(_) {
+        const req = _.getEnvironmentKey("req");
+        if (!req)
+            return this.success("");
         return this.success(Object.keys(req.query).length);
     },
 });

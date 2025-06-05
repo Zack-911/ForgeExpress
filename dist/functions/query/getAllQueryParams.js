@@ -7,8 +7,10 @@ exports.default = new forgescript_1.NativeFunction({
     description: "Returns all query parameters as a JSON object.",
     unwrap: false,
     output: forgescript_1.ArgType.Json,
-    async execute(ctx) {
-        const req = ctx.request;
+    async execute(_) {
+        const req = _.getEnvironmentKey("req");
+        if (!req)
+            return this.success("");
         return this.success(req.query);
     },
 });

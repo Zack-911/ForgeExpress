@@ -18,8 +18,10 @@ exports.default = new forgescript_1.NativeFunction({
             rest: false,
         },
     ],
-    async execute(ctx, [schema]) {
-        const req = ctx.request;
+    async execute(_, [schema]) {
+        const req = _.getEnvironmentKey("req");
+        if (!req)
+            return this.success("");
         const result = (0, jsonschema_1.validate)(req.body, schema);
         return this.success(result.valid);
     },

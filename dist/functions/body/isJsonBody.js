@@ -7,8 +7,10 @@ exports.default = new forgescript_1.NativeFunction({
     description: "Returns true if the request body is valid JSON.",
     unwrap: false,
     output: forgescript_1.ArgType.Boolean,
-    async execute(ctx) {
-        const req = ctx.request;
+    async execute(_) {
+        const req = _.getEnvironmentKey("req");
+        if (!req)
+            return this.success("");
         try {
             JSON.stringify(req.body);
             return this.success(true);

@@ -7,8 +7,10 @@ exports.default = new forgescript_1.NativeFunction({
     description: "Lists all header keys in the request.",
     unwrap: false,
     output: forgescript_1.ArgType.Json,
-    async execute(ctx) {
-        const req = ctx.request;
+    async execute(_) {
+        const req = _.getEnvironmentKey("req");
+        if (!req)
+            return this.success("");
         const keys = Object.keys(req.headers);
         return this.success(keys);
     },
