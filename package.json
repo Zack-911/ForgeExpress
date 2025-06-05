@@ -19,16 +19,16 @@
     "tryforge"
   ],
   "author": "Zack-911",
-  "license": "GPL-3.0",
+  "license": "BSD-3-Clause",
   "devDependencies": {
     "@tryforge/forgescript": "^2.3.0",
-    "@types/luxon": "^3.6.2",
+    "@types/express": "^5.0.2",
     "@types/node": "^20.10.6",
     "dotenv": "^16.3.1",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "forgescheduler": "github:Zack-911/ForgeScheduler#dev",
-    "luxon": "^3.6.1"
+    "@tryforge/forge.api": "github:tryforge/forgeapi#dev",
+    "express": "^5.1.0"
   }
 }

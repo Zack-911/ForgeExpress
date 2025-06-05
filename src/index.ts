@@ -1,13 +1,11 @@
 import {
     ForgeExtension,
     ForgeClient,
-    IExtendedCompiledFunctionField
 } from "@tryforge/forgescript"
-import { PausedSchedules } from "./types"
 
 
-export class ForgeScheduler extends ForgeExtension {
-    name = "forge.scheduler"
+export class ForgeExpress extends ForgeExtension {
+    name = "forge.express"
     description = "Extension for scheduling repeated tasks."
     version = require("../package.json").version
 
@@ -21,29 +19,4 @@ export class ForgeScheduler extends ForgeExtension {
 
         this.load(__dirname + "/functions")
     }
-}
-
-declare module "@tryforge/forgescript" {
-  interface ForgeClient {
-    scheduleCounts: Map<string, number>;
-    pausedSchedules: Map<string, boolean>;
-    remainingTimes: Map<string, number>;
-    lastTick: Map<string, number>;
-    scheduleData: Map<
-      string,
-      {
-        pausedSchedules?: PausedSchedules;
-        scheduleCounts?: Map<string, number>;
-        code?: IExtendedCompiledFunctionField;
-        time?: number;
-        atTime?: string;
-        offset?: number;
-        startClock?: any;
-        lastRunDay?: string;
-        timezone?: string;
-        uneditable?: boolean;
-        days?: string[];
-      }
-    >;
-  }
 }

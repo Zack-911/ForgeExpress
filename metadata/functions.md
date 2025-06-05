@@ -1,208 +1,249 @@
 # ForgeScheduler Native Functions
 
-## Control
+## Body
 
-### $pauseAllSchedules (v1.0.0)
-Pauses all active schedules.
-
-**Returns:** `Boolean`
-**Brackets:** `false`
-**Unwrap:** `false`
-
-### $pauseSchedule (v1.0.0)
-Pauses an active schedule.
+### $bodyHas (v1.1.0)
+Checks if the request body contains a key.
 
 **Arguments:**
 
-- `jobID` (String, required) - The jobID of the schedule to pause.
+- `Key` (String, required) - The key to check in the body.
 
-**Returns:** `Boolean`
-**Brackets:** `true`
+**Returns:** `Boolean`  
+**Brackets:** `true`  
 **Unwrap:** `true`
 
-### $resumeAllSchedules (v1.0.0)
-Resumes all paused schedules.
-
-**Returns:** `Boolean`
-**Brackets:** `false`
-**Unwrap:** `false`
-
-### $resumeSchedule (v1.0.0)
-Resumes a paused schedule.
+### $getBodyProp (v1.1.0)
+Gets a property from the request body.
 
 **Arguments:**
 
-- `jobID` (String, required) - The jobID of the schedule to resume.
+- `Key` (String, required) - The body property to retrieve.
 
-**Returns:** `Boolean`
-**Brackets:** `true`
+**Returns:** `String`  
+**Brackets:** `true`  
 **Unwrap:** `true`
 
-## Manage
+### $getRawBody (v1.1.0)
+Gets the raw request body as a string.
 
-### $deleteAllSchedules (v1.1.0)
-Deletes all schedules
-
-**Returns:** `Boolean`
-**Brackets:** `false`
+**Returns:** `String`  
+**Brackets:** `false`  
 **Unwrap:** `false`
 
-### $deleteSchedule (v1.0.0)
-Deletes a schedule and clears its interval.
+### $loadBodyTo (v1.1.0)
+Loads the parsed request body into an environment variable.
 
 **Arguments:**
 
-- `jobID` (String, required) - The jobID of the schedule to delete.
+- `Name` (String, required) - The environment variable name to assign the request body to.
 
-**Returns:** `Boolean`
-**Brackets:** `true`
+**Returns:** `None`  
+**Brackets:** `true`  
 **Unwrap:** `true`
 
-### $deleteScheduleIn (v1.1.0)
-Deletes a schedule after a delay
+## Cookies
+
+### $clearCookie (v1.1.0)
+Clears a cookie from the response.
 
 **Arguments:**
 
-- `jobID` (String, required) - Schedule ID to delete
-- `delay` (Time, required) - Delay time before deletion
+- `Key` (String, required) - The name of the cookie to clear.
 
-**Returns:** `Boolean`
-**Brackets:** `true`
+**Returns:** `Boolean`  
+**Brackets:** `true`  
 **Unwrap:** `true`
 
-### $editSchedule (v1.1.0)
-Edits an existing interval schedule's code and/or time unless marked uneditable.
+### $getCookie (v1.1.0)
+Gets a cookie from the request.
 
 **Arguments:**
 
-- `jobID` (String, required) - The ID of the schedule to edit
-- `time` (Time, optional) - New time interval (optional)
-- `code` (String, optional) - New code to run (optional)
+- `Key` (String, required) - The cookie name.
 
-**Returns:** `Boolean`
-**Brackets:** `true`
-**Unwrap:** `false`
-
-### $listSchedules (v1.0.0)
-Returns a JSON array of all active schedule jobIDs.
-
-**Returns:** `String`
-**Brackets:** `false`
-**Unwrap:** `false`
-
-### $startSchedule (v1.0.0)
-Executes code after a given duration until canceled.
-
-**Arguments:**
-
-- `code` (String, required) - The code to execute.
-- `time` (Time, required) - How long to wait before running this code.
-- `jobID` (String, required) - The jobID for this interval.
-
-**Returns:** `Boolean`
-**Brackets:** `true`
-**Unwrap:** `false`
-
-### $startScheduleAtTime (v1.1.0)
-Starts a schedule that runs every day at a specific time in a given timezone and optional days.
-
-**Arguments:**
-
-- `code` (String, required) - The code to execute
-- `time` (String, required) - Time in 24-hour format (e.g., 14:30)
-- `timezone` (String, required) - Timezone like UTC+2 or GMT-5
-- `jobID` (String, required) - The job ID
-
-**Returns:** `Boolean`
-**Brackets:** `false`
-**Unwrap:** `false`
-
-## Stats
-
-### $activeSchedules (v1.0.0)
-Returns an array of active (not paused) schedule IDs.
-
-**Returns:** `String`
-**Brackets:** `false`
-**Unwrap:** `false`
-
-### $allScheduleDetails (v1.0.0)
-Returns an array of JSON objects representing all schedule details.
-
-**Returns:** `String`
-**Brackets:** `false`
-**Unwrap:** `false`
-
-### $findSchedules (v1.1.0)
-Returns a list of schedule IDs containing a keyword
-
-**Arguments:**
-
-- `keyword` (String, required) - Keyword to search for
-- `max` (Number, optional) - Maximum results
-
-**Returns:** `String`
-**Brackets:** `true`
+**Returns:** `String`  
+**Brackets:** `true`  
 **Unwrap:** `true`
 
-### $isSchedulePaused (v1.0.0)
-Returns true if the schedule is paused.
+### $setCookie (v1.1.0)
+Sets a cookie in the response.
 
 **Arguments:**
 
-- `jobID` (String, required) - The schedule ID to check.
+- `Key` (String, required) - The cookie name.
+- `Value` (String, required) - The cookie value.
 
-**Returns:** `Boolean`
-**Brackets:** `true`
+**Returns:** `Boolean`  
+**Brackets:** `true`  
 **Unwrap:** `true`
 
-### $pausedSchedules (v1.0.0)
-Returns an array of paused schedule IDs.
+## Headers
 
-**Returns:** `String`
-**Brackets:** `false`
+### $getAllHeaders (v1.1.0)
+Returns all request headers as a JSON object.
+
+**Returns:** `Json`  
+**Brackets:** `false`  
 **Unwrap:** `false`
 
-### $scheduleDetails (v1.0.1)
-Returns the details of a schedule with the given jobID as a JSON string.
+### $getHeader (v1.1.0)
+Retrieves a header from the request. Returns an empty string if not found.
 
 **Arguments:**
 
-- `jobID` (String, required) - The ID of the schedule
+- `Name` (String, required) - The header name.
 
-**Returns:** `String`
-**Brackets:** `true`
+**Returns:** `String`  
+**Brackets:** `true`  
 **Unwrap:** `true`
 
-### $scheduleExists (v1.0.0)
-Checks if a schedule with the given ID exists.
+### $setHeader (v1.1.0)
+Sets a custom response header.
 
 **Arguments:**
 
-- `jobID` (String, required) - The job ID to check.
+- `Key` (String, required) - Header key.
+- `Value` (String, required) - Header value.
 
-**Returns:** `Boolean`
-**Brackets:** `true`
+**Returns:** `Boolean`  
+**Brackets:** `true`  
 **Unwrap:** `true`
 
-### $scheduleNextRun (v1.0.0)
-Returns the ms remaining until the next run of a schedule.
+## Query
+
+### $getQuery (v1.1.0)
+Retrieves a query parameter from the request. Returns an empty string if not found.
 
 **Arguments:**
 
-- `jobID` (String, required) - The jobID of the schedule.
+- `Name` (String, required) - The query parameter name.
 
-**Returns:** `Number`
-**Brackets:** `true`
+**Returns:** `String`  
+**Brackets:** `true`  
 **Unwrap:** `true`
 
-### $scheduleRunCount (v1.0.0)
-Returns how many times a schedule has run.
+## Request
+
+### $accepts (v1.1.0)
+Returns accepted content types as a comma-separated string.
+
+**Returns:** `String`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
+### $baseURL (v1.1.0)
+Retrieves the base URL of the request. Returns empty string if unavailable.
+
+**Returns:** `String`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
+### $hasHeader (v1.1.0)
+Checks if a specific header exists in the request.
 
 **Arguments:**
 
-- `jobID` (String, required) - The ID of the schedule
+- `Name` (String, required) - The name of the header.
 
-**Returns:** `Number`
-**Brackets:** `true`
+**Returns:** `Boolean`  
+**Brackets:** `true`  
+**Unwrap:** `true`
+
+### $hostname (v1.1.0)
+Retrieves the hostname from the request. Returns an empty string if unavailable.
+
+**Returns:** `String`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
+### $ip (v1.1.0)
+Retrieves the IP address of the incoming request. Returns an empty string if unavailable.
+
+**Returns:** `String`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
+### $isRequestSecure (v1.1.0)
+Checks if the incoming request was made over HTTPS.
+
+**Returns:** `Boolean`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
+### $originalURL (v1.1.0)
+Retrieves the full original URL of the incoming request.
+
+**Returns:** `String`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
+### $referrer (v1.1.0)
+Returns the Referer header value from the request.
+
+**Returns:** `String`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
+### $userAgent (v1.1.0)
+Returns the user-agent string of the request.
+
+**Returns:** `String`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
+## Response
+
+### $end (v1.1.0)
+Ends the response without sending any content.
+
+**Returns:** `Boolean`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
+### $redirect (v1.1.0)
+Redirects the response to the given URL.
+
+**Arguments:**
+
+- `URL` (String, required) - The URL to redirect to.
+- `Status Code` (Number, optional) - Optional status code (default 302).
+
+**Returns:** `None`  
+**Brackets:** `true`  
+**Unwrap:** `true`
+
+### $sendJson (v1.1.0)
+Sends a JSON response with the given data.
+
+**Arguments:**
+
+- `Data` (Json, required) - The JSON content to send.
+- `Status Code` (Number, optional) - Optional status code.
+
+**Returns:** `None`  
+**Brackets:** `true`  
+**Unwrap:** `true`
+
+### $sendText (v1.1.0)
+Sends plain text in a response, with an optional status code.
+
+**Arguments:**
+
+- `Content` (String, required) - The text content to send.
+- `Status Code` (Number, optional) - The status code to send with the response.
+
+**Returns:** `Boolean`  
+**Brackets:** `true`  
+**Unwrap:** `true`
+
+### $setStatus (v1.1.0)
+Sets the HTTP status code for the response.
+
+**Arguments:**
+
+- `Code` (Number, required) - The status code to set.
+
+**Returns:** `Boolean`  
+**Brackets:** `true`  
 **Unwrap:** `true`

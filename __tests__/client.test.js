@@ -1,13 +1,19 @@
 const { ForgeClient, LogPriority } = require('@tryforge/forgescript')
-const { ForgeScheduler } = require('../dist')
 const path = require('path')
+const { ForgeAPI } = require('@tryforge/forge.api')
+const { ForgeExpress } = require('../dist')
+
+const api = new ForgeAPI({
+  port: 3008,
+  auth: {
+    type: 0,
+  },
+});
 
 const client = new ForgeClient({
-  extensions: [
-    new ForgeScheduler()
-  ],
+    extensions: [api, new ForgeExpress],
     events: [
-        'messageCreate',
+        'messageCreate'
     ],
     intents: [
         'Guilds',
@@ -17,6 +23,6 @@ const client = new ForgeClient({
     prefixes: ['.']
 })
 
-client.commands.load('./__tests__/commands')
+api.load(path.resolve(__dirname, 'routes'))
 
 client.login('')

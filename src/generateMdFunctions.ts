@@ -1,59 +1,73 @@
-import fs from "fs"
-import path from "path"
+import * as fs from "fs";
 
-type MetadataArg = {
-  name: string
-  description: string
-  required: boolean
-  rest: boolean
-  type: string
-}
+type Arg = {
+  name: string;
+  description: string;
+  type: string;
+  required: boolean;
+  rest: boolean;
+};
 
-type MetadataEntry = {
-  name: string
-  version: string
-  description: string
-  output: string[]
-  unwrap: boolean
-  brackets?: boolean
-  category: string
-  args?: MetadataArg[]
-}
+type Func = {
+  name: string;
+  version: string;
+  description: string;
+  brackets?: boolean;
+  unwrap?: boolean;
+  args?: Arg[];
+  output?: string[];
+  category: string;
+};
 
-export function generateDocsFromMetadata(filePath: string): string {
-  const raw = fs.readFileSync(path.resolve(filePath), "utf-8")
-  const metadata: MetadataEntry[] = JSON.parse(raw)
+export function generateDocsFromMetadata(jsonPath: string): string {
+  const raw = fs.readFileSync(jsonPath, "utf-8");
+  const functions: Func[] = JSON.parse(raw);
 
-  const grouped = new Map<string, MetadataEntry[]>()
+  const grouped = functions.reduce<Record<string, Func[]>>((acc, fn) => {
+    if (!acc[fn.category]) acc[fn.category] = [];
+    acc[fn.category].push(fn);
+    return acc;
+  }, {});
 
-  for (const entry of metadata) {
-    if (!grouped.has(entry.category)) grouped.set(entry.category, [])
-    grouped.get(entry.category)!.push(entry)
+  function formatArgs(args: Arg[] | undefined): string {
+    if (!args || args.length === 0) return "None";
+    return args
+      .map(
+        (a) =>
+          `- \`${a.name}\` (${a.type}${
+            a.required ? ", required" : ", optional"
+          }) - ${a.description}`
+      )
+      .join("\n");
   }
 
-  let output = "# ForgeScheduler Native Functions\n\n"
+  function formatOutput(output: string[] | undefined): string {
+    if (!output || output.length === 0) return "None";
+    return output.join(" | ");
+  }
 
-  for (const [category, entries] of grouped) {
-    output += `## ${category[0].toUpperCase()}${category.slice(1)}\n\n`
+  let md = "# ForgeExpress Functions\n\n";
 
-    for (const entry of entries) {
-      output += `### ${entry.name} (v${entry.version})\n`
-      output += `${entry.description}\n\n`
+  for (const category of Object.keys(grouped)) {
+    md += `## ${capitalize(category)}\n\n`;
+    for (const fn of grouped[category]) {
+      md += `### ${fn.name} (v${fn.version})\n`;
+      md += `${fn.description}\n\n`;
 
-      if (entry.args && entry.args.length > 0) {
-        output += `**Arguments:**\n\n`
-        for (const arg of entry.args) {
-          const req = arg.required ? "required" : "optional"
-          output += `- \`${arg.name}\` (${arg.type}, ${req}) - ${arg.description}\n`
-        }
-        output += `\n`
+      if (fn.args && fn.args.length > 0) {
+        md += `**Arguments:**\n\n${formatArgs(fn.args)}\n\n`;
       }
 
-      output += `**Returns:** \`${entry.output.join(" | ")}\`\n`
-      output += `**Brackets:** \`${entry.brackets ?? false}\`\n`
-      output += `**Unwrap:** \`${entry.unwrap}\`\n\n`
+      md += `**Returns:** \`${formatOutput(fn.output)}\`  \n`;
+      md += `**Brackets:** \`${fn.brackets ?? false}\`  \n`;
+      md += `**Unwrap:** \`${fn.unwrap ?? false}\`\n\n`;
     }
   }
 
-  return output
+  return md;
+}
+
+function capitalize(s: string) {
+  if (s.length === 0) return s;
+  return s[0].toUpperCase() + s.slice(1);
 }
