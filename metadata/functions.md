@@ -1,4 +1,4 @@
-# ForgeScheduler Native Functions
+# ForgeExpress Functions
 
 ## Body
 
@@ -12,6 +12,13 @@ Checks if the request body contains a key.
 **Returns:** `Boolean`  
 **Brackets:** `true`  
 **Unwrap:** `true`
+
+### $bodyLength (v1.1.0)
+Returns the number of top-level keys in the request body.
+
+**Returns:** `Number`  
+**Brackets:** `false`  
+**Unwrap:** `false`
 
 ### $getBodyProp (v1.1.0)
 Gets a property from the request body.
@@ -31,6 +38,13 @@ Gets the raw request body as a string.
 **Brackets:** `false`  
 **Unwrap:** `false`
 
+### $isJsonBody (v1.1.0)
+Returns true if the request body is valid JSON.
+
+**Returns:** `Boolean`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
 ### $loadBodyTo (v1.1.0)
 Loads the parsed request body into an environment variable.
 
@@ -42,37 +56,12 @@ Loads the parsed request body into an environment variable.
 **Brackets:** `true`  
 **Unwrap:** `true`
 
-## Cookies
-
-### $clearCookie (v1.1.0)
-Clears a cookie from the response.
+### $validateBodySchema (v1.1.0)
+Validates the request body against a JSON schema.
 
 **Arguments:**
 
-- `Key` (String, required) - The name of the cookie to clear.
-
-**Returns:** `Boolean`  
-**Brackets:** `true`  
-**Unwrap:** `true`
-
-### $getCookie (v1.1.0)
-Gets a cookie from the request.
-
-**Arguments:**
-
-- `Key` (String, required) - The cookie name.
-
-**Returns:** `String`  
-**Brackets:** `true`  
-**Unwrap:** `true`
-
-### $setCookie (v1.1.0)
-Sets a cookie in the response.
-
-**Arguments:**
-
-- `Key` (String, required) - The cookie name.
-- `Value` (String, required) - The cookie value.
+- `Schema` (Json, required) - The JSON schema to validate against.
 
 **Returns:** `Boolean`  
 **Brackets:** `true`  
@@ -98,6 +87,47 @@ Retrieves a header from the request. Returns an empty string if not found.
 **Brackets:** `true`  
 **Unwrap:** `true`
 
+### $hasHeader (v1.1.0)
+Checks if a specific header exists in the request.
+
+**Arguments:**
+
+- `Name` (String, required) - The name of the header.
+
+**Returns:** `Boolean`  
+**Brackets:** `true`  
+**Unwrap:** `true`
+
+### $hasHeaderValue (v1.1.0)
+Checks if a header has a specific value.
+
+**Arguments:**
+
+- `Key` (String, required) - The name of the header.
+- `Value` (String, required) - The value to check for.
+
+**Returns:** `Boolean`  
+**Brackets:** `true`  
+**Unwrap:** `true`
+
+### $listHeaderKeys (v1.1.0)
+Lists all header keys in the request.
+
+**Returns:** `Json`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
+### $removeHeader (v1.1.0)
+Removes a header from the response.
+
+**Arguments:**
+
+- `Key` (String, required) - The name of the header to remove.
+
+**Returns:** `Boolean`  
+**Brackets:** `true`  
+**Unwrap:** `true`
+
 ### $setHeader (v1.1.0)
 Sets a custom response header.
 
@@ -110,7 +140,21 @@ Sets a custom response header.
 **Brackets:** `true`  
 **Unwrap:** `true`
 
+### $setHtmlHeader (v1.1.0)
+Sets Content-Type: text/html on the response.
+
+**Returns:** `Boolean`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
 ## Query
+
+### $getAllQueryParams (v1.1.0)
+Returns all query parameters as a JSON object.
+
+**Returns:** `Json`  
+**Brackets:** `false`  
+**Unwrap:** `false`
 
 ### $getQuery (v1.1.0)
 Retrieves a query parameter from the request. Returns an empty string if not found.
@@ -122,6 +166,31 @@ Retrieves a query parameter from the request. Returns an empty string if not fou
 **Returns:** `String`  
 **Brackets:** `true`  
 **Unwrap:** `true`
+
+### $hasQueryParam (v1.1.0)
+Checks if a query parameter exists in the request.
+
+**Arguments:**
+
+- `Key` (String, required) - The name of the query parameter.
+
+**Returns:** `Boolean`  
+**Brackets:** `true`  
+**Unwrap:** `true`
+
+### $queryLength (v1.1.0)
+Returns the number of query parameters in the request.
+
+**Returns:** `Number`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
+### $setJsonHeader (v1.1.0)
+Sets Content-Type: application/json on the response.
+
+**Returns:** `Boolean`  
+**Brackets:** `false`  
+**Unwrap:** `false`
 
 ## Request
 
@@ -138,17 +207,6 @@ Retrieves the base URL of the request. Returns empty string if unavailable.
 **Returns:** `String`  
 **Brackets:** `false`  
 **Unwrap:** `false`
-
-### $hasHeader (v1.1.0)
-Checks if a specific header exists in the request.
-
-**Arguments:**
-
-- `Name` (String, required) - The name of the header.
-
-**Returns:** `Boolean`  
-**Brackets:** `true`  
-**Unwrap:** `true`
 
 ### $hostname (v1.1.0)
 Retrieves the hostname from the request. Returns an empty string if unavailable.
@@ -247,3 +305,4 @@ Sets the HTTP status code for the response.
 **Returns:** `Boolean`  
 **Brackets:** `true`  
 **Unwrap:** `true`
+

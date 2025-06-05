@@ -5,6 +5,12 @@ declare const _default: NativeFunction<[{
     type: ArgType.String;
     required: true;
     rest: false;
+}, {
+    name: string;
+    description: string;
+    type: ArgType.String;
+    required: true;
+    rest: false;
 }], true>;
 export default _default;
-//# sourceMappingURL=clearCookie.d.ts.map
+//# sourceMappingURL=hasHeaderValue.d.ts.map

@@ -2,34 +2,32 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const forgescript_1 = require("@tryforge/forgescript");
 exports.default = new forgescript_1.NativeFunction({
-    name: "$setCookie",
+    name: "$hasHeaderValue",
     version: "1.1.0",
-    description: "Sets a cookie in the response.",
+    description: "Checks if a header has a specific value.",
     brackets: true,
     unwrap: true,
     args: [
         {
             name: "Key",
-            description: "The cookie name.",
+            description: "The name of the header.",
             type: forgescript_1.ArgType.String,
             required: true,
-            rest: false
+            rest: false,
         },
         {
             name: "Value",
-            description: "The cookie value.",
+            description: "The value to check for.",
             type: forgescript_1.ArgType.String,
             required: true,
-            rest: false
-        }
+            rest: false,
+        },
     ],
     output: forgescript_1.ArgType.Boolean,
-    async execute(_, [key, value]) {
-        const res = _.getEnvironmentKey("res");
-        if (!res)
-            return this.customError("Response object not found.");
-        res.cookie(key, value);
-        return this.success(true);
-    }
+    async execute(ctx, [key, value]) {
+        const req = ctx.request;
+        const headerValue = req.get(key);
+        return this.success(headerValue === value);
+    },
 });
-//# sourceMappingURL=setCookie.js.map
+//# sourceMappingURL=hasHeaderValue.js.map

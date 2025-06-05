@@ -7,4 +7,4 @@ declare const _default: NativeFunction<[{
     rest: false;
 }], true>;
 export default _default;
-//# sourceMappingURL=getCookie.d.ts.map
+//# sourceMappingURL=removeHeader.d.ts.map

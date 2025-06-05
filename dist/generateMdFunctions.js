@@ -56,7 +56,7 @@ function generateDocsFromMetadata(jsonPath) {
             return "None";
         return output.join(" | ");
     }
-    let md = "# ForgeScheduler Native Functions\n\n";
+    let md = "# ForgeExpress Functions\n\n";
     for (const category of Object.keys(grouped)) {
         md += `## ${capitalize(category)}\n\n`;
         for (const fn of grouped[category]) {
