@@ -11,7 +11,9 @@ exports.default = new forgescript_1.NativeFunction({
         const req = _.getEnvironmentKey("req");
         if (!req)
             return this.success("");
-        return this.success(req.ip || "");
+        const ip = req.ip || "";
+        const cleaned = ip.startsWith("::ffff:") ? ip.slice(7) : ip;
+        return this.success(cleaned);
     }
 });
 //# sourceMappingURL=ip.js.map
