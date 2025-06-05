@@ -7,8 +7,9 @@ export default new NativeFunction({
   description: "Lists all header keys in the request.",
   unwrap: false,
   output: ArgType.Json,
-  async execute(ctx) {
-    const req = ctx.request as Request
+  async execute(_) {
+    const req = _.getEnvironmentKey("req") as Request | undefined
+    if (!req) return this.success("")
     const keys = Object.keys(req.headers)
     return this.success(keys)
   },

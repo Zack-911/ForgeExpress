@@ -7,8 +7,9 @@ export default new NativeFunction({
   description: "Returns all query parameters as a JSON object.",
   unwrap: false,
   output: ArgType.Json,
-  async execute(ctx) {
-    const req = ctx.request as Request
+  async execute(_) {
+    const req = _.getEnvironmentKey("req") as Request | undefined
+    if (!req) return this.success("")
     return this.success(req.query)
   },
 })

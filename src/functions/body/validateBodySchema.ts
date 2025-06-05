@@ -18,8 +18,9 @@ export default new NativeFunction({
       rest: false,
     },
   ],
-  async execute(ctx, [schema]) {
-    const req = ctx.request as Request
+  async execute(_, [schema]) {
+    const req = _.getEnvironmentKey("req") as Request | undefined
+    if (!req) return this.success("")
     const result = validate(req.body, schema)
     return this.success(result.valid)
   },

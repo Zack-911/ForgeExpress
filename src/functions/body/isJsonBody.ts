@@ -7,8 +7,9 @@ export default new NativeFunction({
   description: "Returns true if the request body is valid JSON.",
   unwrap: false,
   output: ArgType.Boolean,
-  async execute(ctx) {
-    const req = ctx.request as Request
+  async execute(_) {
+    const req = _.getEnvironmentKey("req") as Request | undefined
+    if (!req) return this.success("")
     try {
       JSON.stringify(req.body)
       return this.success(true)

@@ -24,8 +24,9 @@ export default new NativeFunction({
     },
   ],
   output: ArgType.Boolean,
-  async execute(ctx, [key, value]) {
-    const req = ctx.request as Request
+  async execute(_, [key, value]) {
+    const req = _.getEnvironmentKey("req") as Request | undefined
+    if (!req) return this.success("")
     const headerValue = req.get(key)
     return this.success(headerValue === value)
   },

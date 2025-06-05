@@ -7,8 +7,9 @@ export default new NativeFunction({
   description: "Returns the number of top-level keys in the request body.",
   unwrap: false,
   output: ArgType.Number,
-  async execute(ctx) {
-    const req = ctx.request as Request
+  async execute(_) {
+    const req = _.getEnvironmentKey("req") as Request | undefined
+    if (!req) return this.success("")
     const body = req.body
     if (body && typeof body === "object") {
       return this.success(Object.keys(body).length)
