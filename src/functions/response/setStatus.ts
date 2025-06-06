@@ -2,7 +2,7 @@ import { ArgType, NativeFunction } from "@tryforge/forgescript"
 import type { Response } from "express"
 
 export default new NativeFunction({
-  name: "$setStatus",
+  name: "$setStatusCode",
     version: "1.1.0",
   description: "Sets the HTTP status code for the response.",
   brackets: true,

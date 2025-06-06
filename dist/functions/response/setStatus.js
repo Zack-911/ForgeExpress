@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const forgescript_1 = require("@tryforge/forgescript");
 exports.default = new forgescript_1.NativeFunction({
-    name: "$setStatus",
+    name: "$setStatusCode",
     version: "1.1.0",
     description: "Sets the HTTP status code for the response.",
     brackets: true,

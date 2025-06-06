@@ -147,6 +147,13 @@ Sets Content-Type: text/html on the response.
 **Brackets:** `false`  
 **Unwrap:** `false`
 
+### $setTextHeader (v1.1.0)
+Sets Content-Type: text/plain on the response.
+
+**Returns:** `Boolean`  
+**Brackets:** `false`  
+**Unwrap:** `false`
+
 ## Query
 
 ### $getAllQueryParams (v1.1.0)
@@ -271,6 +278,28 @@ Redirects the response to the given URL.
 **Brackets:** `true`  
 **Unwrap:** `true`
 
+### $sendFile (v1.1.0)
+Sends any file from the media folder with proper content-type.
+
+**Arguments:**
+
+- `path` (String, required) - Relative path to the file
+
+**Returns:** `Boolean`  
+**Brackets:** `true`  
+**Unwrap:** `true`
+
+### $sendImage (v1.1.0)
+Sends an image file in the response using its path and correct content-type.
+
+**Arguments:**
+
+- `path` (String, required) - Relative path to the image file
+
+**Returns:** `Boolean`  
+**Brackets:** `true`  
+**Unwrap:** `true`
+
 ### $sendJson (v1.1.0)
 Sends a JSON response with the given data.
 
@@ -295,7 +324,18 @@ Sends plain text in a response, with an optional status code.
 **Brackets:** `true`  
 **Unwrap:** `true`
 
-### $setStatus (v1.1.0)
+### $sendVideo (v1.1.0)
+Sends a video file (or animation like GIF) with correct content-type.
+
+**Arguments:**
+
+- `path` (String, required) - Relative path to the video or animated media file
+
+**Returns:** `Boolean`  
+**Brackets:** `true`  
+**Unwrap:** `true`
+
+### $setStatusCode (v1.1.0)
 Sets the HTTP status code for the response.
 
 **Arguments:**
