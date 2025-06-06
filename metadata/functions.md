@@ -243,6 +243,17 @@ Retrieves the full original URL of the incoming request.
 **Brackets:** `false`  
 **Unwrap:** `false`
 
+### $param (v1.0.0)
+Gets a route parameter by name from the URL.
+
+**Arguments:**
+
+- `name` (String, required) - The name of the route parameter (e.g., id, type)
+
+**Returns:** `String`  
+**Brackets:** `true`  
+**Unwrap:** `true`
+
 ### $referrer (v1.1.0)
 Returns the Referer header value from the request.
 
